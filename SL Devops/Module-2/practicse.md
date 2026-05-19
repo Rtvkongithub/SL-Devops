@@ -214,17 +214,6 @@ PID  STATE CMD
 1236 Z     node
 ```
 
-# Real DevOps Importance
-
-Process states help detect:
-
-* stuck applications
-* high CPU usage
-* disk bottlenecks
-* crashed services
-* zombie accumulation
-* Kubernetes container issues
-
 Especially:
 
 * Many `R` → CPU overload
