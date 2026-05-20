@@ -214,6 +214,11 @@ PID  STATE CMD
 1236 Z     node
 ```
 
+Especially:
+
+* Many `R` → CPU overload
+* Many `D` → disk/storage problem
+* Many `Z` → bad application handling
 
 # Command Im daily using
 - ssh
@@ -221,9 +226,3 @@ PID  STATE CMD
 - mv
 - cp
 - cat
-
-Especially:
-
-* Many `R` → CPU overload
-* Many `D` → disk/storage problem
-* Many `Z` → bad application handling
