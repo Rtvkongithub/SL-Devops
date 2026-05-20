@@ -214,6 +214,14 @@ PID  STATE CMD
 1236 Z     node
 ```
 
+
+# Command Im daily using
+- ssh
+- cd
+- mv
+- cp
+- cat
+
 Especially:
 
 * Many `R` → CPU overload
