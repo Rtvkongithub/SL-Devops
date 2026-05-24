@@ -98,3 +98,57 @@
 | `sudo apt remove nginx`  | Remove package             |
 
 ---
+
+## ⚙️ Process Checks
+
+| Command           | Usage                          |
+| ----------------- | ------------------------------ |
+| `ps aux`          | View all running processes     |
+| `ps aux \| head`  | View first few processes       |
+| `top`             | Real-time process monitoring   |
+| `pgrep ssh`       | Find process by name           |
+
+---
+
+## 🔧 Service Checks
+
+| Command                                      | Usage                          |
+| -------------------------------------------- | ------------------------------ |
+| `systemctl status ssh`                       | Check SSH service status       |
+| `systemctl list-units --type=service`        | List running services          |
+| `systemctl is-active docker`                 | Check if Docker is active      |
+| `sudo systemctl restart cron`                | Restart cron service           |
+
+---
+
+## 📜 Log Checks
+
+| Command                          | Usage                          |
+| -------------------------------- | ------------------------------ |
+| `journalctl -u ssh`              | View SSH service logs          |
+| `tail -n 50 /var/log/syslog`     | View last 50 system log lines  |
+| `journalctl -xe`                 | View recent system errors      |
+
+---
+
+## 🛠️ Mini Troubleshooting Flow
+
+### Problem:
+Docker service not responding.
+
+| Step | Command                          | Purpose                    |
+| ---- | -------------------------------- | -------------------------- |
+| 1    | `systemctl status docker`        | Check Docker status        |
+| 2    | `journalctl -u docker`           | Inspect Docker logs        |
+| 3    | `sudo systemctl restart docker`  | Restart Docker service     |
+| 4    | `systemctl status docker`        | Verify service is running  |
+
+---
+
+## ✅ Summary
+
+Practiced:
+- Process monitoring
+- systemd service management
+- Linux log inspection
+- Basic troubleshooting workflow
