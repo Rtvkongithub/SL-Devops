@@ -112,12 +112,29 @@
 
 ## 🔧 Service Checks
 
-| Command                                      | Usage                          |
-| -------------------------------------------- | ------------------------------ |
-| `systemctl status ssh`                       | Check SSH service status       |
-| `systemctl list-units --type=service`        | List running services          |
-| `systemctl is-active docker`                 | Check if Docker is active      |
-| `sudo systemctl restart cron`                | Restart cron service           |
+| Command                                           | Usage                              |
+| ------------------------------------------------- | ---------------------------------- |
+| `systemctl status nginx`                          | Check nginx service status         |
+| `systemctl start nginx`                           | Start nginx service                |
+| `systemctl stop nginx`                            | Stop nginx service                 |
+| `systemctl restart nginx`                         | Restart nginx service              |
+| `systemctl reload nginx`                          | Reload configuration without stop  |
+| `systemctl enable nginx`                          | Enable service at boot             |
+| `systemctl disable nginx`                         | Disable service at boot            |
+| `systemctl is-active nginx`                       | Check if service is active         |
+| `systemctl is-enabled nginx`                      | Check if service starts on boot    |
+| `systemctl list-units --type=service`             | List active services               |
+| `systemctl list-unit-files --type=service`        | List all installed services        |
+| `systemctl --failed`                              | Show failed services               |
+| `systemctl daemon-reload`                         | Reload systemd configuration       |
+| `systemctl reboot`                                | Reboot the system                  |
+| `systemctl poweroff`                              | Shut down the system               |
+| `systemctl suspend`                               | Suspend the system                 |
+| `systemctl get-default`                           | Show default boot target           |
+| `systemctl set-default multi-user.target`         | Set CLI mode as default            |
+| `systemctl set-default graphical.target`          | Set GUI mode as default            |
+| `systemctl cat nginx`                             | View service file content          |
+| `systemctl show nginx`                            | Show detailed service properties   |
 
 ---
 
