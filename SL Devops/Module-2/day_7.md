@@ -32,4 +32,30 @@ journalctl -u myapp -n 20
 ```
 systemctl is-enabled myapp
 ```
+- enabled from boot
+
+## Part -3
+```
+htop
+```
+```
+ps aux --sort=-%cpu | head -10 -> will sort in desc order(highest will b seen first)
+```
+```
+pkill -9 <PID>
+```
+
+## Part -4
+```
+systemctl status docker
+journalctl -u docker -n 20
+* journalctl -u docker -f (refers to love log)
+```
+
+## Part -5
+```
+ls -l /home/user/backup.sh
+chmod +x /home/user/backup.sh
+.backup.sh
+```
 
