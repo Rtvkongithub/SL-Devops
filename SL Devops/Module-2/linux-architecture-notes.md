@@ -16,6 +16,7 @@
 | `rm file.txt`           | Delete file                          |
 | `rm -rf dir`            | Force delete directory               |
 | `find . -name file.txt` | Search for file                      |
+| `sudo userdel abc`      | Delete the user                      |
 
 ---
 
