@@ -45,7 +45,16 @@
 | `chmod 755 file`       | Change file permissions    |
 | `chown user:user file` | Change file ownership      |
 ```
-sudo chown :developers(grp,user,etc) /opt/dev-project
+sudo chown :developers(grp) /opt/dev-project
+-rw-r--r-- 1 ubuntu ubuntu devops-file.txt
+-rw-r--r-- 1 ubuntu developers devops-file.txt
+sudo chgrp developers /opt/dev-project
+
+sudo chown rtvk(owner) /opt/dev-project
+-rw-r--r-- 1 ubuntu ubuntu devops-file.txt
+-rw-r--r-- 1 rtvk ubuntu devops-file.txt
+
+sudo chown tokyo:developers devops-file.txt (FOR BOTH)
 ```
 | `sudo userdel abc`     | Delete the user            |
 
