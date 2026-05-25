@@ -55,6 +55,8 @@ sudo chown rtvk(owner) /opt/dev-project
 -rw-r--r-- 1 rtvk ubuntu devops-file.txt
 
 sudo chown tokyo:developers devops-file.txt (FOR BOTH)
+chown -R professor:planners heist-project (this will change everything inside the directories)
+
 ```
 | `sudo userdel abc`     | Delete the user            |
 
