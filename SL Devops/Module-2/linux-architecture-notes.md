@@ -44,6 +44,9 @@
 | `passwd name`          | Set user password          |
 | `chmod 755 file`       | Change file permissions    |
 | `chown user:user file` | Change file ownership      |
+```
+sudo chown :developers(grp,user,etc) /opt/dev-project
+```
 | `sudo userdel abc`     | Delete the user            |
 
 
