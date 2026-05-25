@@ -16,7 +16,6 @@
 | `rm file.txt`           | Delete file                          |
 | `rm -rf dir`            | Force delete directory               |
 | `find . -name file.txt` | Search for file                      |
-| `sudo userdel abc`      | Delete the user                      |
 
 ---
 
@@ -45,6 +44,8 @@
 | `passwd name`          | Set user password          |
 | `chmod 755 file`       | Change file permissions    |
 | `chown user:user file` | Change file ownership      |
+| `sudo userdel abc`     | Delete the user            |
+
 
 ---
 
