@@ -60,6 +60,9 @@
 | `bg`          | Run job in background      |
 | `fg`          | Bring job to foreground    |
 
+```
+ps aux --sort=-%cpu | head -10
+```
 ---
 
 ## 💾 Disk & System Commands
