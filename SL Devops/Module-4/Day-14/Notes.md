@@ -191,4 +191,32 @@ Transport (TCP/UDP)
 Application (DNS, HTTP, SSH)
 ```
 
+- Curl - Used to send HTTP/HTTPS requests and interact with APIs.
+- wget - to download
+- traceroute/ tracepath - Shows the path packets take from your machine to a destination.
 
+```
+DNS Issue?
+    ↓
+dig google.com
+
+Network Issue?
+    ↓
+ping google.com
+
+Path Issue?
+    ↓
+traceroute google.com
+
+Port Issue?
+    ↓
+nc -zv host port
+
+Web/App Issue?
+    ↓
+curl -I https://site.com
+
+Need File?
+    ↓
+wget URL
+```
