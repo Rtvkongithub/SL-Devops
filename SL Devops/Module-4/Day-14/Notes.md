@@ -129,19 +129,14 @@ You can add this to your markdown report:
 ### Reflection
 
 #### 1. Which command gives you the fastest signal when something is broken?
-
 **`ping`** gives the fastest basic connectivity check because it immediately tells me whether the target is reachable and provides latency and packet loss information.
-
 For web applications specifically, **`curl -I <url>`** is often the fastest way to verify whether the service itself is responding.
 
 ---
 
 #### 2. What layer would you inspect next if DNS fails?
-
 DNS operates at the **Application Layer (OSI Layer 7)** and the **Application Layer of the TCP/IP model**.
-
 If DNS resolution fails, I would check:
-
 * DNS server configuration (`/etc/resolv.conf`)
 * DNS reachability (`ping` or `nc` to DNS server)
 * Firewall rules
@@ -150,10 +145,7 @@ If DNS resolution fails, I would check:
 ---
 
 #### 3. What layer would you inspect if HTTP 500 appears?
-
-An **HTTP 500 Internal Server Error** usually indicates a problem at the **Application Layer (OSI Layer 7)**.
-
-I would investigate:
+An **HTTP 500 Internal Server Error** usually indicates a problem at the **Application Layer (OSI Layer 7)**
 
 * Web server logs (Nginx/Apache)
 * Application logs
@@ -164,40 +156,32 @@ I would investigate:
 ---
 
 #### 4. Two follow-up checks in a real incident
-
 **Check 1: Service Status**
-
-```bash
+```
 systemctl status <service>
 ```
 
 Purpose:
-
 * Verify whether the application or service is running properly.
 
 **Check 2: Logs**
-
-```bash
+```
 journalctl -u <service> -n 50
 ```
 
-or
-
-```bash
+```
 tail -f /var/log/nginx/error.log
 ```
 
 Purpose:
-
 * Identify errors, crashes, connection failures, or configuration issues.
 
 ---
-
 ### Key Takeaway
 
 When troubleshooting, I start from the bottom and move upward:
 
-```text
+```
 Physical/Link
     ↓
 Network (IP)
@@ -207,5 +191,4 @@ Transport (TCP/UDP)
 Application (DNS, HTTP, SSH)
 ```
 
-This layered approach helps isolate the failure domain quickly and is commonly used in real-world DevOps and SRE incident response.
 
