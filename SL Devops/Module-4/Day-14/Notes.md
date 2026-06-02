@@ -26,12 +26,12 @@
 | Physical (L1)     | Link         |
 
 ## When you visit https://google.com:
-DNS resolves google.com → IP address.
-TCP establishes a connection (3-way handshake).
-TLS (part of HTTPS) encrypts communication.
-HTTP/HTTPS sends the web request.
-IP routes packets across networks.
-Ethernet/Wi-Fi carries frames over the local network.
+- DNS resolves google.com → IP address.
+- TCP establishes a connection (3-way handshake).
+- TLS (part of HTTPS) encrypts communication.
+- HTTP/HTTPS sends the web request.
+- IP routes packets across networks.
+- Ethernet/Wi-Fi carries frames over the local network.
 
 ```
 Q: Does HTTP run on IP directly?
