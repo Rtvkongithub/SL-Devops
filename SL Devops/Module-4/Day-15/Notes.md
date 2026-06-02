@@ -1,4 +1,4 @@
-## NS → IP → CIDR → Ports → Connectivity checks (ping, nslookup, dig, ss, nc, curl)
+### NS → IP → CIDR → Ports → Connectivity checks (ping, nslookup, dig, ss, nc, curl)
 
 ```
 Website not loading
