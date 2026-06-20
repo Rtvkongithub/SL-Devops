@@ -29,7 +29,17 @@ docker volume create pg-data
 Named Volume → Database/Data Persistence
 Bind Mount → Live code or file sharing during development
 ```
+#### Named Volume: volume-name : container-path
+- Left side is a Docker-managed volume.
+- It stores data persistently, but Docker manages where it is stored.
+- Mainly used for databases (PostgreSQL, MySQL, MongoDB).
 
+#### Bind Mount: host-path : container-path
+
+-  Left side is a host directory (your local folder).
+- Changes on the host are reflected immediately in the container ("live").
+-  Mainly used during development.
+  
 ## Task -4
 - docker network ls
 - docker network inspect bridge
