@@ -2,6 +2,7 @@
 - mkdir my-first-image
     - nano Dockerfile
 <img width="1458" height="222" alt="image" src="https://github.com/user-attachments/assets/812dc006-0c95-4990-b574-476840d205d3" />
+
 - docker build -t my-ubuntu:v1 .
 - docker run --name (container name) (image name) / (no use of detatched mode cos it will get exit asap)
 - docker exec -it (container name) bash / exec only works in running container (exec/run)
@@ -57,6 +58,7 @@ docker run entry-demo hello world
 # Output: hello world
 ```
 ## Task - 4
+
 <img width="968" height="210" alt="image" src="https://github.com/user-attachments/assets/96aec6d6-5ebb-49fa-b2b7-59e31f663ee0" />
 <img width="998" height="328" alt="image" src="https://github.com/user-attachments/assets/7af5b6ea-529e-4f59-aba8-13239655f823" />
 ```
