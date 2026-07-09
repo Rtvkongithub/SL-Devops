@@ -80,6 +80,257 @@ K8s
 
 ---
 
-# Quick Interview Answer
+# Task 2: Kubernetes Architecture
 
-> Kubernetes is an open-source container orchestration platform created by Google and inspired by its internal system called Borg. Docker is used to build and run containers, whereas Kubernetes manages containers across multiple servers by automating deployment, scaling, load balancing, service discovery, self-healing, and rolling updates. The name Kubernetes means "helmsman" or "pilot," symbolizing its role in steering containerized applications. It is commonly abbreviated as **K8s**.
+## Kubernetes Architecture
+
+```text
+                        Kubernetes Cluster
+┌───────────────────────────────────────────────────────────────┐
+│                                                               │
+│                    CONTROL PLANE (Master Node)                │
+│                                                               │
+│  kubectl                                                     │
+│      │                                                        │
+│      ▼                                                        │
+│ ┌──────────────┐                                              │
+│ │  API Server  │  ← Front door of the cluster                 │
+│ └──────┬───────┘                                              │
+│        │                                                      │
+│  ┌─────┼───────────────┐                                      │
+│  │     │               │                                      │
+│  ▼     ▼               ▼                                      │
+│┌──────────┐    ┌───────────────┐    ┌────────────────────┐     │
+││  etcd    │    │   Scheduler   │    │ Controller Manager │     │
+││Database  │    │ Chooses node  │    │Maintains desired   │     │
+││Stores    │    │for new Pods   │    │state of cluster    │     │
+││cluster   │    └───────────────┘    └────────────────────┘     │
+││state     │                                                   │
+│└──────────┘                                                   │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│                    WORKER NODE 1                              │
+│                                                               │
+│ ┌───────────┐                                                 │
+│ │ kubelet  │ ← Communicates with API Server                   │
+│ └─────┬────┘                                                 │
+│       │                                                      │
+│ ┌─────▼─────┐                                                │
+│ │Container  │ ← containerd / CRI-O                           │
+│ │ Runtime   │                                                │
+│ └─────┬─────┘                                                │
+│       │                                                      │
+│ ┌─────▼────────────┐                                         │
+│ │      Pods        │                                         │
+│ └──────────────────┘                                         │
+│                                                               │
+│ ┌──────────────────┐                                         │
+│ │   kube-proxy     │ ← Handles networking & load balancing   │
+│ └──────────────────┘                                         │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│                    WORKER NODE 2                              │
+│ (Same components as Worker Node 1)                            │
+│                                                               │
+└───────────────────────────────────────────────────────────────┘
+```
+
+---
+
+# Components
+
+## Control Plane (Master Node)
+
+### 1. API Server
+
+- Front door of the Kubernetes cluster.
+- Every command from `kubectl`, dashboards, or applications goes through the API Server.
+- Validates requests and updates the cluster state.
+
+---
+
+### 2. etcd
+
+- Distributed key-value database.
+- Stores the entire cluster state.
+- Keeps information about:
+  - Pods
+  - Nodes
+  - Deployments
+  - Services
+  - Secrets
+  - ConfigMaps
+
+Think of **etcd as Kubernetes' brain (database).**
+
+---
+
+### 3. Scheduler
+
+- Watches for Pods that don't have a node assigned.
+- Selects the best Worker Node based on:
+  - Available CPU
+  - Available Memory
+  - Node labels
+  - Taints & tolerations
+  - Affinity rules
+
+The Scheduler **decides where a Pod should run.**
+
+---
+
+### 4. Controller Manager
+
+Continuously watches the cluster.
+
+It ensures the **actual state** matches the **desired state**.
+
+Example:
+- Desired Pods = 3
+- Running Pods = 2
+
+The Controller Manager notices the difference and creates another Pod.
+
+This is called the **reconciliation loop**.
+
+---
+
+# Worker Node Components
+
+## 1. kubelet
+
+- Agent running on every Worker Node.
+- Communicates with the API Server.
+- Receives Pod specifications.
+- Starts and monitors Pods.
+- Reports Pod status back to the API Server.
+
+---
+
+## 2. kube-proxy
+
+Responsible for networking.
+
+It:
+- Routes traffic to Pods.
+- Implements Service networking.
+- Maintains networking rules.
+- Performs load balancing between Pods.
+
+---
+
+## 3. Container Runtime
+
+Actually runs containers.
+
+Common runtimes:
+- containerd
+- CRI-O
+
+The Container Runtime:
+- Pulls container images
+- Starts containers
+- Stops containers
+- Deletes containers
+
+---
+
+# What happens when you run?
+
+```bash
+kubectl apply -f pod.yaml
+```
+
+### Step 1
+
+`kubectl` sends the Pod manifest to the **API Server**.
+
+↓
+
+### Step 2
+
+The **API Server** validates the request.
+
+↓
+
+### Step 3
+
+The Pod specification is stored inside **etcd**.
+
+↓
+
+### Step 4
+
+The **Scheduler** notices a new Pod without a node assignment.
+
+↓
+
+### Step 5
+
+The Scheduler selects the most suitable Worker Node.
+
+↓
+
+### Step 6
+
+The API Server informs the **kubelet** on that Worker Node.
+
+↓
+
+### Step 7
+
+The kubelet instructs the **Container Runtime** to:
+- Pull the image (if needed)
+- Create the container
+- Start the Pod
+
+↓
+
+### Step 8
+
+The kubelet reports the Pod status back to the API Server.
+
+↓
+
+### Step 9
+
+The **Controller Manager** continuously monitors the Pod to ensure it remains in the desired state.
+
+↓
+
+### Step 10
+
+If the Pod is exposed through a Service, **kube-proxy** updates networking rules so traffic can reach it.
+
+---
+
+# What happens if the API Server goes down?
+
+- `kubectl` commands stop working.
+- No new Pods can be created.
+- Scheduling stops.
+- Controllers cannot update the cluster.
+- Existing Pods **continue running** on Worker Nodes.
+- The cluster cannot be managed until the API Server is restored.
+
+---
+
+# What happens if a Worker Node goes down?
+
+1. The kubelet on that node stops sending heartbeats.
+2. The Control Plane detects the node failure.
+3. The node is marked **NotReady**.
+4. Pods running on the failed node become unavailable.
+5. The Controller Manager creates replacement Pods.
+6. The Scheduler assigns the new Pods to healthy Worker Nodes.
+7. The kubelets on those nodes start the replacement Pods.
+
+This process provides **self-healing**, one of Kubernetes' key features.
+
+---
+
+# Interview Answer (1 Minute)
+
+> Kubernetes consists of a **Control Plane** and one or more **Worker Nodes**. The Control Plane manages the cluster through the **API Server**, **etcd**, **Scheduler**, and **Controller Manager**. The API Server receives all requests, etcd stores the cluster state, the Scheduler decides where Pods should run, and the Controller Manager ensures the actual state matches the desired state. Each Worker Node runs a **kubelet**, which communicates with the API Server, a **Container Runtime** that executes containers, and **kube-proxy**, which manages networking. When `kubectl apply -f pod.yaml` is executed, the request flows through the API Server, is stored in etcd, scheduled to a Worker Node, and the kubelet instructs the Container Runtime to start the Pod.
