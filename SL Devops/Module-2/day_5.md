@@ -1,6 +1,6 @@
 ### Env basics
 ```
-uname -a
+uname -a  #Linux ubuntu 6.8.0-31-generic #31-Ubuntu SMP x86_64 GNU/Linux
 cat /etc/os-release
 lsb_release -a
 ```
